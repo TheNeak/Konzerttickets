@@ -1,11 +1,11 @@
 package main
 
-import "time"
 
 type Ticket struct {
-	TicketId  int       `json: TicketId`
-	Name      string    `json:"name"`
-	Due       time.Time `json:"due"`
+	TicketId string `json: ticketID`
+	Name     string `json:"name"`
+	Date     string `json:"date"`
 }
 
-type Tickets []Ticket
+var tickets []Ticket
+

@@ -52,6 +52,12 @@ var routes = Routes{
 		"TicketDelete",
 		"DELETE",
 		"/Tickets/{TicketId}",
-		TicketShow,
+		TicketDelete,
+	},
+	Route{
+		"TicketPost",
+		"POST",
+		"/Tickets",
+		TicketPost,
 	},
 }

@@ -4,7 +4,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
-
 	"github.com/gorilla/mux"
 )
 
@@ -13,23 +12,34 @@ func Index(w http.ResponseWriter, r *http.Request) {
 }
 
 func TicketIndex(w http.ResponseWriter, r *http.Request) {
-	Tickets := Tickets{
-		Ticket{TicketId: 1, Name: "a day to remember"},
-		Ticket{TicketId: 2, Name: "volbeat"},
-	}
-
-	if err := json.NewEncoder(w).Encode(Tickets); err != nil {
-		panic(err)
-	}
+	json.NewEncoder(w).Encode(tickets)
 }
 
 func TicketShow(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	TicketId := vars["TicketId"]
-	fmt.Fprintln(w, "Ticket show:", TicketId)
+	params := mux.Vars(r)
+	for _, item := range tickets {
+		if item.TicketId == params["ticketID"] {
+		}
+	}
 }
 
 func TicketDelete(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	for index, item := range tickets {
+		if item.TicketId == params["ticketID"] {
+			tickets = append(tickets[:index], tickets[index+1])
+			break
+		}
+		json.NewEncoder(w).Encode(tickets)
+	}
+}
 
+func TicketPost(w http.ResponseWriter, r *http.Request) {
+	params := mux.Vars(r)
+	var ticket Ticket
+	_ = json.NewDecoder(r.Body).Decode(&ticket)
+	ticket.TicketId = params["ticketID"]
+	tickets = append(tickets, ticket)
+	json.NewEncoder(w).Encode(ticket)
 
 }
