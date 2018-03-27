@@ -9,22 +9,27 @@ import (
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintln(w, "Welcome!")
+	fmt.Fprintln(w, "Hallo! Ticketübersicht bei /Tickets ... für bestimmtes Ticket /Tickets/ID")
 }
 
-func KonzertticketIndex(w http.ResponseWriter, r *http.Request) {
-	Konzerttickets := Konzerttickets{
-		Konzertticket{Name: "a day to remember"},
-		Konzertticket{Name: "volbeat"},
+func TicketIndex(w http.ResponseWriter, r *http.Request) {
+	Tickets := Tickets{
+		Ticket{TicketId: 1, Name: "a day to remember"},
+		Ticket{TicketId: 2, Name: "volbeat"},
 	}
 
-	if err := json.NewEncoder(w).Encode(Konzerttickets); err != nil {
+	if err := json.NewEncoder(w).Encode(Tickets); err != nil {
 		panic(err)
 	}
 }
 
-func KonzertticketShow(w http.ResponseWriter, r *http.Request) {
+func TicketShow(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	KonzertticketId := vars["KonzertticketId"]
-	fmt.Fprintln(w, "Konzertticket show:", KonzertticketId)
+	TicketId := vars["TicketId"]
+	fmt.Fprintln(w, "Ticket show:", TicketId)
+}
+
+func TicketDelete(w http.ResponseWriter, r *http.Request) {
+
+
 }

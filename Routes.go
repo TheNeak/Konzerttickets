@@ -37,15 +37,21 @@ var routes = Routes{
 		Index,
 	},
 	Route{
-		"KonzertticketIndex",
+		"TicketIndex",
 		"GET",
-		"/Konzerttickets",
-		KonzertticketIndex,
+		"/Tickets",
+		TicketIndex,
 	},
 	Route{
-		"KonzertticketShow",
+		"TicketShow",
 		"GET",
-		"/Konzerttickets/{KonzertticketId}",
-		KonzertticketShow,
+		"/Tickets/{TicketId}",
+		TicketShow,
+	},
+	Route{
+		"TicketDelete",
+		"DELETE",
+		"/Tickets/{TicketId}",
+		TicketShow,
 	},
 }
