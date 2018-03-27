@@ -4,7 +4,9 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	_ "log"
 	"github.com/gorilla/mux"
+	"log"
 )
 
 func Index(w http.ResponseWriter, r *http.Request) {
@@ -18,7 +20,8 @@ func TicketIndex(w http.ResponseWriter, r *http.Request) {
 func TicketShow(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	for _, item := range tickets {
-		if item.TicketId == params["ticketID"] {
+		if item.TicketId == params["TicketId"] {
+			json.NewEncoder(w).Encode(item)
 		}
 	}
 }
@@ -26,8 +29,9 @@ func TicketShow(w http.ResponseWriter, r *http.Request) {
 func TicketDelete(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	for index, item := range tickets {
-		if item.TicketId == params["ticketID"] {
-			tickets = append(tickets[:index], tickets[index+1])
+		if item.TicketId == params["TicketId"] {
+			tickets = append(tickets[:index], tickets[index+1:]...)
+			log.Print(params["TicketId"])
 			break
 		}
 		json.NewEncoder(w).Encode(tickets)
